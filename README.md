@@ -4,10 +4,9 @@ Servidor de métricas, apoyado en la librería Audit4Improve
 ## Objetivo
 
 El objetivo de este código es practicar con:
-
-* La gestión de dependencias
-* La integración continua
-* El despliegue continuo
+- La gestión de dependencias
+- La integración continua
+- El despliegue continuo
 
 ## Dependencias
 
@@ -57,16 +56,22 @@ Para ejecutar el servidor web de en la máquina local, ejecuta el siguiente coma
 ./gradlew bootRun
 ```
 
-Prueba que el servicio expone un endpoint de metricas en /metrics:
+Prueba que el servicio expone un endpoint de metricas en /metricsInfo:
 
 ```shell
-curl http://localhost:8080/metrics
+curl http://localhost:8080/metricsInfo/issues
 ```
 
 El endpoint debe devolver la siguiente respuesta:
 
 ```shell
-TODO: Utilizar Audit4Improve e imprimir las metricas en la respuesta
+
+StatusCode        : 200
+StatusDescription :
+Content           : {"name":"issues","unit":"issues","description":"Tareas sin finalizar en el repositorio","type":"java.lang.Integer"}
+RawContent        : HTTP/1.1 200
+                    Transfer-Encoding: chunked
+...
 ```
 
 ### Ejecutar los tests
@@ -86,7 +91,7 @@ Para ejecutar el entorno local de desarrollo, ejecuta el siguiente comando:
 ```
 
 La tarea `localenv` levanta un cluster de Kubernetes y configura de forma
-automática el contexto de Kubernetes para que podamos acceder a la API
+automÃ¡tica el contexto de Kubernetes para que podamos acceder a la API
 de Kubernetes de manera local usando `kubectl`. Levantar el entorno local
 debe tardar alrededor de 3 minutos.
 
@@ -129,12 +134,12 @@ Al finalizar, aplicación se encuentra en el `default` namespace, y debe
 de haber 1 pod en estado running:
 
 ```shell
-➜  ~ kubectl get po
+âžœ  ~ kubectl get po
 NAME                            READY   STATUS    RESTARTS   AGE
 audit-server-7b7f9cbb96-x6kfw   1/1     Running   0          98s
 ```
 
-Podemos interactuar con la aplicación usando y similar que recibe peticiones
+Podemos interactuar con la aplicación y simular que recibe peticiones
 HTTP haciendo port-forwarding del servicio a nuestra máquina local. De esta
 forma, no necesitamos un Load Balancer real en nuestra infraestructura, ni
 configuración DNS extra:
@@ -149,10 +154,10 @@ de nuestra máquina local. Y ahora podemos abrir otro terminal y lanzarle
 peticiones a nuestro servicio:
 
 ```shell
-➜  ~ curl http://localhost:8000/healthz
+âžœ  ~ curl http://localhost:8000/healthz
 {"healthy":true}
-➜  ~ curl http://localhost:8000/metrics
-TODO: Utilizar Audit4Improve e imprimir las metricas en la respuesta
+âžœ  ~ curl http://localhost:8000/metricsInfo/forks
+{"name":"forks","unit":"forks","description":"Número de forks, no son los forks de la web","type":"java.lang.Integer"}
 ```
 
 ## Comenzar con Spring Boot para el desarrollo de servicios REST
@@ -180,4 +185,5 @@ The following guides illustrate how to use some features concretely:
 
 These additional references should also help you:
 
-* [Gradle Build Scans – insights for your project's build](https://scans.gradle.com#gradle)
+* [Gradle Build Scans â€“ insights for your project's build](https://scans.gradle.com#gradle)
+
