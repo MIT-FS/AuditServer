@@ -59,6 +59,9 @@ ResponseEntity<Map<String, Object>> healthz() {
 			body.put("healthy", true);
 			body.put("totalAdditions", myMetric.getValue());
 			body.put("metric", myMetric);
+			// Cambio
+			body.put("remoterepo",  healthzGithubRepo);
+
 			log.fine("La respuesta recibida ha sido: "+myMetric);
 		}else {
 			log.fine("La respuesta del remoto no se ha recibido bien");
